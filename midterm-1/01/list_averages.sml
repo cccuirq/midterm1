@@ -35,5 +35,18 @@ fun
 list_averages(xs: real list): real list = ...
 *)
 (* ****** ****** *)
-
+fun list_averages xs =
+    let
+    fun help ([], _, _, res) = 
+        list_reverse res 
+        |
+        help(x::xs, current, i, res) =
+            let 
+                val ave = (current + x)/ Real.fromInt(i)
+            in
+                help(xs, current+x, i+1, ave::res)
+            end
+    in
+        help(xs,0.0,1,[])
+    end
 (* end of [CS320-2023-Spring-midterm1-list_averages.sml] *)
