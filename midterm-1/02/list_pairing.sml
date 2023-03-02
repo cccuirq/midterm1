@@ -31,5 +31,12 @@ list_pairing
 (xs: 'a list): ('a * 'a) list * 'a option = ...
 *)
 (* ****** ****** *)
-
+fun list_pairing (xs: 'a list):('a * 'a) list * 'a option =
+    let
+        val n = list_length xs
+        val pairs = list_tabulate(n div 2, fn i => (list_get_at(xs, i), list_get_at(xs, n - 1 - i)))
+        val middle = if n mod 2 = 0 then NONE else SOME(list_get_at(xs, n div 2))
+    in
+        (pairs, middle)
+    end
 (* end of [CS320-2023-Spring-midterm1-list_pairing.sml] *)
