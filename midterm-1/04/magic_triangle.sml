@@ -63,5 +63,26 @@ magic_triangle (n : int) : int list list = ...
 *)
 
 (* ****** ****** *)
+fun nextRow prevRow =
+    let
+        fun nextElem (x::y::ys) = 
+            (x+y)::nextElem (y::ys)
+            | 
+            nextElem _ = []
+    in
+        list_append(list_append([1], nextElem prevRow),[1])
+    end
 
+fun triangle n =
+    if n = 0 then [[1]]
+    else
+        let
+            val prevTriangle = triangle (n-1)
+        in
+            let 
+                val last = list_get_at(prevTriangle, list_length prevTriangle - 1)
+            in
+                list_append(prevTriangle,[nextRow last])
+            end
+        end
 (* end of [CS320-2023-Spring-midterm1-magic_triangle.sml] *)
