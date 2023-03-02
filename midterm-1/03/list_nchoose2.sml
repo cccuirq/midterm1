@@ -36,22 +36,22 @@ list_nchoose2(xs: int list): (int * int) list = ...
 (* ****** ****** *)
 fun list_nchoose2(xs: int list): (int * int) list =
   let
-    fun loop(xs': int list, res: (int * int) list): (int * int) list =
+    fun help(xs': int list, res: (int * int) list): (int * int) list =
       case xs' of
         [] => res
       | x1 :: xs'' => 
         let
-          fun inner_loop(xs'': int list, acc: (int * int) list): (int * int) list =
+          fun helper(xs'': int list, acc: (int * int) list): (int * int) list =
             case xs'' of
               [] => acc
             | x2 :: xs''' =>
               if x1 < x2
-              then inner_loop(xs''', (x1, x2) :: acc)
-              else inner_loop(xs''', (x2, x1) :: acc)
+              then helper(xs''', (x1, x2) :: acc)
+              else helper(xs''', (x2, x1) :: acc)
         in
-          loop(xs'', inner_loop(xs'', res))
+          help(xs'', helper(xs'', res))
         end
   in
-    loop(xs, [])
+    help(xs, [])
   end
 (* end of [CS320-2023-Spring-midterm1-list_nchoose2.sml] *)
